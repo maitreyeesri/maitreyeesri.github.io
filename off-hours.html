@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off hours · Maitreyee Srivastava</title>
+<meta name="description" content="What I do when I'm not doing product.">
+<meta property="og:title" content="Off hours · Maitreyee Srivastava">
+<meta property="og:description" content="What I do when I'm not doing product.">
+<meta name="theme-color" content="#0b0b0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0a'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23f3c94b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<canvas id="backdrop" aria-hidden="true"></canvas>
+<div class="lantern" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="Home"><span class="dot"></span>maitreyee</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">menu</button>
+    <ul class="nav" id="nav">
+      <li><a href="about.html">About</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="off-hours.html">Off hours</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a class="cta" href="book.html">Book a 1:1</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero wrap">
+    <span class="eyebrow reveal">Off hours</span>
+    <h1 class="display lines"><span class="ln"><span>When the laptop</span></span><span class="ln"><span><em>closes.</em></span></span></h1>
+    <p class="lede reveal" style="--d:.25s">The parts that never make it onto a resume, and usually make the better conversation.</p>
+  </section>
+  <section class="wrap" style="padding-top:0">
+    <div class="grid c3">
+      <div class="flip reveal" style="--d:0.00s" tabindex="0">
+        <div class="flip-in">
+          <div class="face front"><span class="glyph">¶</span><h3>Reading</h3><small>hover or tap to flip</small></div>
+          <div class="face back"><span class="k">between the lines</span><p>The quickest way to borrow someone else's brain. Ask me what I'm reading.</p></div>
+        </div>
+      </div>
+      <div class="flip reveal" style="--d:0.08s" tabindex="0">
+        <div class="flip-in">
+          <div class="face front"><span class="glyph">◐</span><h3>Painting</h3><small>hover or tap to flip</small></div>
+          <div class="face back"><span class="k">no undo button</span><p>Where I think without words. No deadlines, no metrics, just colour.</p></div>
+        </div>
+      </div>
+      <div class="flip reveal" style="--d:0.16s" tabindex="0">
+        <div class="flip-in">
+          <div class="face front"><span class="glyph">✎</span><h3>Writing</h3><small>hover or tap to flip</small></div>
+          <div class="face back"><span class="k">thinking out loud</span><p>How I find out what I actually think.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="wrap" style="padding-top:0">
+    <div class="factbox reveal">
+      <p id="fact">Trained as an aerospace engineer. Has never built a plane.</p>
+      <button class="btn ghost" id="shuffle">Another one <span class="arr">↻</span></button>
+    </div>
+  </section>
+  <script>
+    const FACTS = [
+      "Trained as an aerospace engineer. Has never built a plane.",
+      "First job: writing firewall rules for a bank.",
+      "Ran webinars for 700+ people. Prefers a 1:1 over coffee.",
+      "Has interviewed 11+ industry leaders, on camera.",
+      "Ran the consulting club at IIT Kanpur.",
+      "Has watched someone tap a smartphone for the very first time. Changed how I design.",
+    ];
+    let fi = 0;
+    document.getElementById("shuffle").addEventListener("click", () => {
+      const el = document.getElementById("fact");
+      el.style.opacity = 0;
+      setTimeout(() => { fi = (fi + 1 + Math.floor(Math.random() * (FACTS.length - 1))) % FACTS.length; el.textContent = FACTS[fi]; el.style.opacity = 1; }, 250);
+    });
+    document.querySelectorAll(".flip").forEach((f) => {
+      f.addEventListener("click", () => f.classList.toggle("on"));
+      f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); f.classList.toggle("on"); } });
+    });
+  </script>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="big reveal">
+      <span class="eyebrow">Say hello</span>
+      <h2 style="margin-top:20px">Got a messy problem? <a href="book.html">Let's make it simple.</a></h2>
+    </div>
+    <div class="base">
+      <span>© <span data-year></span> Maitreyee Srivastava</span>
+      <ul class="socials">
+        <li><a data-link="linkedin" href="#">LinkedIn</a></li>
+        <li><a data-link="twitter" href="#">X / Twitter</a></li>
+        <li><a data-link="email" href="#">Email</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="assets/main.js"></script>
+</body>
+</html>
