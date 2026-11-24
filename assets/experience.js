@@ -228,7 +228,7 @@ if (xpRoot) {
 const topRoot = document.getElementById("top-problems");
 if (topRoot) {
   topRoot.innerHTML = allItems.filter((i) => i.featured).slice(0, 3).map((it, i) => `
-    <a class="card problem reveal" style="--d:${i * 0.08}s" href="work.html#${it.id}">
+    <a class="card problem reveal" style="--d:${i * 0.08}s" href="/work#${it.id}">
       <span class="k">${String(i + 1).padStart(2, "0")} / ${it.co}</span>
       <b class="pm">${it.metric}</b>
       <span class="pl">${it.label}</span>
@@ -249,7 +249,7 @@ document.querySelectorAll(".think").forEach((box) => {
     panel.querySelector(".pr-text").innerHTML = p.dataset.practice;
     panel.querySelector(".pr-metric").textContent = p.dataset.metric;
     panel.querySelector(".pr-mlabel").textContent = p.dataset.mlabel || "";
-    panel.querySelector(".pr-link").href = "work.html#" + p.dataset.ref;
+    panel.querySelector(".pr-link").href = "/work#" + p.dataset.ref;
   };
   items.forEach((p) => {
     p.addEventListener("mouseenter", () => show(p));
