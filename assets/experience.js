@@ -58,7 +58,7 @@ const EXPERIENCE = [
         impact: "Matching accuracy up 55%, and a model that keeps getting better from everyday use.",
       },
       {
-        id: "outreach", product: "EasySource", tags: ["ai"],
+        id: "outreach", product: "EasySource", tags: ["ai"], more: true,
         title: "Outreach candidates reply to, and answers they get instantly",
         metric: "AI", label: "personalised outreach + assistants",
         why: "Generic outreach got ignored, and recruiters spent hours answering the same factual questions from candidates.",
@@ -126,7 +126,7 @@ const EXPERIENCE = [
         impact: "Relevant leads up 200%.",
       },
       {
-        id: "data-partners", product: "Data integrations", tags: ["growth"],
+        id: "data-partners", product: "Data integrations", tags: ["growth"], more: true,
         title: "Better contact data through the right partners",
         metric: "5+", label: "data and outreach partnerships",
         why: "Outreach is only as good as the contact data behind it.",
@@ -169,6 +169,8 @@ const esc = (s) => s.replace(/\[(.+?)\]/g, '<span class="todo">[$1]</span>');
 const xpRoot = document.getElementById("experience");
 if (xpRoot) {
   let n = 0;
+  const MAX = 3; // show the 3 biggest problems per role; the rest sit behind "more"
+  const ordered = (items) => [...items.filter((i) => !i.more), ...items.filter((i) => i.more)];
   xpRoot.innerHTML = EXPERIENCE.map((g) => `
     <div class="co reveal">
       <div class="co-head">
@@ -178,10 +180,10 @@ if (xpRoot) {
         <p class="co-blurb">${g.blurb}</p>
       </div>
       <ul class="xps">
-        ${g.items.map((it) => `
-        <li class="xp" id="${it.id}" data-tags="${it.tags.join(" ")}">
+        ${ordered(g.items).map((it, j) => `
+        <li class="xp${j >= MAX ? " extra" : ""}" id="${it.id}" data-tags="${it.tags.join(" ")}">
           <button class="xp-head" aria-expanded="false">
-            <span class="num">${String(++n).padStart(2, "0")}</span>
+            <span class="num">${String(j + 1).padStart(2, "0")}</span>
             <span class="xp-main"><span class="t">${it.title}</span><span class="meta">${it.product} · ${it.tags.map((t) => TAGS[t]).join(" / ")}</span></span>
             <span class="m"><b>${it.metric}</b><span>${it.label}</span></span>
             <span class="plus" aria-hidden="true"></span>
@@ -193,7 +195,15 @@ if (xpRoot) {
           </div></div>
         </li>`).join("")}
       </ul>
+      ${g.items.length > MAX ? `<button class="more" aria-expanded="false" data-n="${g.items.length - MAX}">+ ${g.items.length - MAX} more</button>` : ""}
     </div>`).join("");
+
+  xpRoot.querySelectorAll(".more").forEach((b) => b.addEventListener("click", () => {
+    const co = b.closest(".co");
+    const open = co.classList.toggle("show-all");
+    b.setAttribute("aria-expanded", open);
+    b.textContent = open ? "Show less" : `+ ${b.dataset.n} more`;
+  }));
 
   const toggle = (li, open) => {
     li.classList.toggle("open", open);
@@ -207,6 +217,7 @@ if (xpRoot) {
   const openFromHash = () => {
     const li = location.hash && document.getElementById(location.hash.slice(1));
     if (li && li.classList.contains("xp")) {
+      if (li.classList.contains("extra")) li.closest(".co").classList.add("show-all");
       toggle(li, true);
       setTimeout(() => li.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }), 350);
     }
@@ -218,6 +229,7 @@ if (xpRoot) {
     chip.addEventListener("click", () => {
       document.querySelectorAll("[data-filter]").forEach((c) => c.setAttribute("aria-pressed", c === chip));
       const f = chip.dataset.filter;
+      xpRoot.classList.toggle("filtering", f !== "all");
       xpRoot.querySelectorAll(".xp").forEach((li) => li.classList.toggle("hide", f !== "all" && !li.dataset.tags.includes(f)));
       xpRoot.querySelectorAll(".co").forEach((co) => co.classList.toggle("hide", !co.querySelector(".xp:not(.hide)")));
     });

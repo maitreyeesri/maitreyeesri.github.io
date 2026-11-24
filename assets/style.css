@@ -565,3 +565,25 @@ section { padding: clamp(64px, 10vw, 128px) 0; }
 }
 /* email address in the contact list reads like the other entries */
 .direct li a [data-email-text] { font-family: var(--sans); font-size: 18px; color: inherit; }
+
+/* ============ home: three rules ============ */
+.rules { list-style: none; border-top: 1px solid var(--line); }
+.rule { display: grid; grid-template-columns: 44px 1fr auto; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.rule .pn { font-family: var(--mono); font-size: 12px; color: var(--accent); align-self: start; padding-top: 8px; }
+.rule h3 { font-size: clamp(19px, 2vw, 24px); font-weight: 400; letter-spacing: -.02em; line-height: 1.25; }
+.rule h3 em { font-family: var(--serif); font-style: italic; }
+.rule p { margin-top: 6px; font-size: 15px; color: var(--muted); max-width: 60ch; }
+.rule-m { text-align: right; }
+.rule-m b { display: block; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(28px, 2.8vw, 38px); line-height: 1; color: var(--muted); transition: color .3s; }
+.rule-m span { font-size: 12px; color: var(--dim); }
+.rule-m:hover b { color: var(--accent); }
+@media (max-width: 640px) { .rule { grid-template-columns: 1fr; gap: 10px; } .rule .pn { padding-top: 0; } .rule-m { text-align: left; display: flex; gap: 10px; align-items: baseline; } }
+
+/* work: 3 per role, rest behind "more" */
+.co:not(.show-all) .xp.extra { display: none; }
+#experience.filtering .xp.extra:not(.hide) { display: block; }
+#experience.filtering .co > .more { display: none; }
+.co > .more { margin-top: 18px; font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 999px; transition: color .25s, border-color .25s; }
+.co > .more:hover { color: var(--accent); border-color: var(--accent); }
+.co > .more { grid-column: 2; justify-self: start; margin-top: -24px; }
+@media (max-width: 900px) { .co > .more { grid-column: 1; margin-top: 0; } }
