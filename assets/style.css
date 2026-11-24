@@ -563,3 +563,5 @@ section { padding: clamp(64px, 10vw, 128px) 0; }
   }
   .hero > .hero-art.reveal.in { transform: none; }
 }
+/* email address in the contact list reads like the other entries */
+.direct li a [data-email-text] { font-family: var(--sans); font-size: 18px; color: inherit; }
