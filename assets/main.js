@@ -24,14 +24,9 @@ document.querySelectorAll("[data-email-text]").forEach((el) => (el.textContent =
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
 /* ---------- nav ---------- */
-// Clean URLs: show /about instead of /about.html, and / instead of /index.html.
-if (/\.html$/.test(location.pathname)) {
-  const clean = location.pathname.replace(/index\.html$/, "").replace(/\.html$/, "");
-  history.replaceState(null, "", clean + location.search + location.hash);
-}
 const here = location.pathname.replace(/\/$/, "").split("/").pop() || "";
 document.querySelectorAll(".nav a").forEach((a) => {
-  const target = a.getAttribute("href").replace(/^\//, "");
+  const target = a.getAttribute("href").replace(/^\/|\/$/g, "");
   if (target === here) a.setAttribute("aria-current", "page");
 });
 const menuBtn = document.querySelector(".menu-btn");
